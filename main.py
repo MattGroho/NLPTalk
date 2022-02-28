@@ -1,18 +1,18 @@
 from models.GPT3 import GPT3
-from server.ServerSocket import ServerSocket
-from utils.voice import listen
+from models.GPTNeo import GPTNeo
+from utils.InputHandler import listen
+
+DO_VOICE_INPUT = False
 
 
 def main():
     # Initialize model
     gpt3 = GPT3()
+    gptNeo = GPTNeo('2.7B')
 
-    ss = ServerSocket(gpt3)
-    ss.listen()
-
-    #while True:
+    while True:
         # Listen to user input and speak back response
-        #listen(gpt3)
+        listen(gptNeo, DO_VOICE_INPUT)
 
 
 # Press the green button to run the script

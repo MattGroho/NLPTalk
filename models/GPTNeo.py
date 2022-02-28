@@ -1,20 +1,26 @@
-import openai
+from happytransformer import HappyGeneration
+from happytransformer import GENSettings
+from transformers import pipeline
 
 
 class GPTNeo:
-    def __init__(self):
-        pass
+    model, settings, type = None, None, None
+
+    def __init__(self, model_type):
+        self.type = model_type
+
+        # Initialize model based on passed parameters
+        if model_type == "125M":
+            self.model = HappyGeneration(model_type="GPT-NEO", model_name="EleutherAI/gpt-neo-125M")
+            self.settings = GENSettings(do_sample=True, top_k=50, max_length=30, min_length=10)
+        elif model_type == "2.7B":
+            self.model = pipeline('text-generation', model='EleutherAI/gpt-neo-2.7B')
 
     def evaluate(self, text):
-        openai.api_key = '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'
-        response = openai.Completion.create(
-            engine="davinci-instruct-beta",
-            prompt=text,
-            temperature=0.5,
-            max_tokens=30,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
-        )
-        content = response.choices[0].text.split('.')
-        return content[0]
+        if self.type == "125M":
+            return self.model.generate_text(text, args=self.settings).text
+        elif self.type == "2.7B":
+            return self.model(text, do_sample=True, max_length=30, min_length=10)[0]['generated_text']
+
+        return None
+
