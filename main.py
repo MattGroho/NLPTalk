@@ -1,4 +1,4 @@
-from Spark.Tokenizer import Tokenizer
+from spark.Tokenizer import Tokenizer
 from models.GPT3 import GPT3
 from models.GPTNeo import GPTNeo
 #from utils.InputHandler import listen
