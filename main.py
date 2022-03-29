@@ -14,7 +14,7 @@ def main():
     tok = Tokenizer()
 
     tokenized = tok.tokenize("Quinn has a loud mouth and always interrupts the coding process.")
-    print(tokenized)
+    print(tokenized.head(20))
 
     # while True:
         # Listen to user input and speak back response

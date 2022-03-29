@@ -1,4 +1,5 @@
 import spacy
+import pandas as pd
 
 
 class Tokenizer:
@@ -13,27 +14,47 @@ class Tokenizer:
     def tokenize(self, text):
         doc = self.nlp(text)
 
-        doc_list = []
+        text, lemma, pos, tag, dep, is_alpha, is_stop = [], [], [], [], [], [], []
 
         for token in doc:
-            doc_list.append([token.text, token.lemma_, token.pos, token.tag_, token.dep_,
-            token.shape_, token.is_alpha, token.is_stop])
-            print(token.morph)
+            text.append(token.text)
+            lemma.append(token.lemma_)
+            pos.append(token.pos_)
+            tag.append(token.tag_)
+            dep.append(token.dep_)
+            is_alpha.append(token.is_alpha)
+            is_stop.append(token.is_stop)
 
-        return doc_list
+        pd_df = pd.DataFrame({'text': text,
+                              'lemma': lemma,
+                              'pos': pos,
+                              'tag': tag,
+                              'dep': dep,
+                              'is_alpha': is_alpha,
+                              'is_stop': is_stop})
+
+        return pd_df
 
     # Vocabularize a list of words by adding them to the vocabulary if they do not already exist
-    def vocabularize(self, text):
+    # param add defines whether or not vocab is added or returns -2 for unknown value
+    def vocabularize(self, text, add):
         for i, word in enumerate(text):
             word = word.lower()
 
             # Adds a new word to the vocab list if it does not already exist
-            if not self.vocab.has_key(word):
-                self.vocab[word] = len(self.vocab)
-
-            # Replace text with vocab index
-            text[i] = self.vocab[word]
+            if self.vocab.has_key(word):
+                # Replace text with vocab index
+                text[i] = self.vocab[word]
+            else:
+                if add:
+                    self.vocab[word] = len(self.vocab)
+                else:
+                    # Replace text with unknown
+                    text[i] = -2
 
     # Saves the current vocabulary list
     def save_vocab(self):
+        pass
+
+    def fill_blanks(self, df, max_entries):
         pass
