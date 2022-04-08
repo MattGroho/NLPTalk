@@ -2,23 +2,17 @@ from spark.Tokenizer import Tokenizer
 from models.GPT3 import GPT3
 from models.GPTNeo import GPTNeo
 #from utils.InputHandler import listen
+from utils import DataCleanser as dc
 
 DO_VOICE_INPUT = False
 
 
 def main():
     # Initialize model
-    # gpt3 = GPT3()
+    gpt3 = GPT3('ETOWN', [line for line in dc.read_doc('EtownData.txt').split('\n') if line])
     # gptNeo = GPTNeo('2.7B')
 
-    tok = Tokenizer()
-
-    tokenized = tok.tokenize("Quinn has a loud mouth and always interrupts the coding process.")
-    print(tokenized.head(20))
-
-    # while True:
-        # Listen to user input and speak back response
-        # listen(gptNeo, DO_VOICE_INPUT)
+    print(gpt3.evaluate('When was etown founded?'))
 
 
 # Press the green button to run the script

@@ -16,7 +16,6 @@ from tensorflow.python.keras.layers import Input, Dense, Flatten, GlobalMaxPool2
 from tensorflow.python.keras import backend as K
 
 
-
 class Siamese:
     model, embedding_index, embeddings_matrix = None, None, None
 
