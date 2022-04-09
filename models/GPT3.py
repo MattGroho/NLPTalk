@@ -10,7 +10,7 @@ class GPT3:
         self.doc_data = doc_data
 
     def evaluate(self, text):
-        openai.api_key = ''
+        openai.api_key = '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'
 
         # Initialize model based on passed parameters
         if self.type == 'GPT3':
@@ -27,7 +27,7 @@ class GPT3:
         elif self.type == 'ETOWN':
             response = openai.Answer.create(
                 search_model="davinci",
-                file=open('EtownData.txt', 'r'),
+                file=open('data/EtownDocData.txt', 'r'),
                 #documents=self.doc_data,
                 model='curie',
                 question=text,
