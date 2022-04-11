@@ -10,15 +10,22 @@ DO_VOICE_INPUT = False
 def main():
     doc_list = [line for line in dc.read_doc('data/EtownDocData.txt').split('\n') if line]
 
-    # print(dc.read_doc('data/EtownDocData.txt').split('\n'))
+    combined_doc_list = [doc_list[i:i+14] for i in range(0, len(doc_list), 14)]
 
-    dc.save_doc_as_txt('C:/Users/handw/Downloads/EtownData_doc.docx', 'data/EtownDocData.txt')
+    final_doc_list = []
+
+    for group in range(len(combined_doc_list)):
+        final_doc_list.append('')
+        for element in combined_doc_list[group]:
+           final_doc_list[group] += element
+
+    #final_doc_list = [final_doc_list[len(final_doc_list) - 1]]
 
     # Initialize model
-    # gpt3 = GPT3('ETOWN', doc_list)
+    gpt3 = GPT3('ETOWN', final_doc_list)
     # gptNeo = GPTNeo('2.7B')
 
-    # print(gpt3.evaluate('When was etown founded?'))
+    print(gpt3.evaluate('Who founded Elizabethtown College?'))
 
 
 # Press the green button to run the script

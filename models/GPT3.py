@@ -10,7 +10,7 @@ class GPT3:
         self.doc_data = doc_data
 
     def evaluate(self, text):
-        openai.api_key = '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'
+        openai.api_key = ''
 
         # Initialize model based on passed parameters
         if self.type == 'GPT3':
@@ -27,13 +27,12 @@ class GPT3:
         elif self.type == 'ETOWN':
             response = openai.Answer.create(
                 search_model="davinci",
-                file=open('data/EtownDocData.txt', 'r'),
-                #documents=self.doc_data,
                 model='curie',
                 question=text,
-                examples_context="Elizabethtown College was founded in 1899.",
-                examples=[["When was Elizabethtown College founded?", "When was etown founded?"]],
+                documents=self.doc_data,
+                examples_context="When was etown founded?",
+                examples=[["Elizabethtown College was founded in 1899.", "Etown was founded in 1899."]],
                 max_tokens=30,
-                stop=["\n", "<|endoftext|>"]
+                stop=['\n', '<|endoftext|>']
             )
-            return response
+            return response['answers'][0]
