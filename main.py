@@ -1,7 +1,7 @@
 from spark.Tokenizer import Tokenizer
 from models.GPT3 import GPT3
 from models.GPTNeo import GPTNeo
-#from utils.InputHandler import listen
+from utils.InputHandler import listen
 from utils import DataCleanser as dc
 
 DO_VOICE_INPUT = False
@@ -19,13 +19,14 @@ def main():
         for element in combined_doc_list[group]:
            final_doc_list[group] += element
 
-    #final_doc_list = [final_doc_list[len(final_doc_list) - 1]]
-
     # Initialize model
     gpt3 = GPT3('ETOWN', final_doc_list)
     # gptNeo = GPTNeo('2.7B')
 
-    print(gpt3.evaluate('Who founded Elizabethtown College?'))
+    while(True):
+        listen(gpt3, True)
+
+    # print(gpt3.evaluate('Who founded Elizabethtown College?'))
 
 
 # Press the green button to run the script
