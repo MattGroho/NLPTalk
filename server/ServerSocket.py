@@ -9,7 +9,7 @@ class ServerSocket:
 
     def __init__(self, model, port):
         # Initialize server socket connection
-        self.socket = self.socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind(('0.0.0.0', port))
 
         self.model = model
@@ -28,9 +28,14 @@ class ServerSocket:
                     self.client.sendall(self.model.evaluate(data))
 
         finally:
-            print("Closing Server Socket")
-            self.client.close()
+            self.close()
 
     def close(self):
-        # Close server socket connection
-        self.socket.close()
+        print("Closing Server Socket")
+        try:
+            # Close client socket connection
+            self.client.close()
+            # Close server socket connection
+            self.socket.close()
+        except Exception as e:
+            print('An error has occurred')
