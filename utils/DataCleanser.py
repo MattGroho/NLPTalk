@@ -13,3 +13,12 @@ def read_doc(doc_loc):
         return text_file.read()
 
     return None
+
+
+def clean_speech(speech):
+    to_replace = ['a town', 'each town', 'eat out']
+
+    for phrase in to_replace:
+        speech = speech.replace(phrase, 'Etown')
+
+    return speech

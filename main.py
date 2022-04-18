@@ -8,7 +8,7 @@ DO_VOICE_INPUT = False
 
 
 def main():
-    doc_list = [line for line in dc.read_doc('data/EtownDocData.txt').split('\n') if line]
+    doc_list = [line for line in str(dc.read_doc('data/EtownDocData.txt'), 'ISO-8859-1').split('\n') if line]
 
     combined_doc_list = [doc_list[i:i+14] for i in range(0, len(doc_list), 14)]
 
