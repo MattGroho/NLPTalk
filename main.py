@@ -1,32 +1,48 @@
-from spark.Tokenizer import Tokenizer
+import sys
 from models.GPT3 import GPT3
 from models.GPTNeo import GPTNeo
+from models.Siamese import Siamese
 from utils.InputHandler import listen
 from utils import DataCleanser as dc
+import pickle
+import pandas as pd
 
 DO_VOICE_INPUT = False
 
 
 def main():
-    doc_list = [line for line in str(dc.read_doc('data/EtownDocData.txt'), 'ISO-8859-1').split('\n') if line]
+    args = sys.argv[1:]
 
-    combined_doc_list = [doc_list[i:i+14] for i in range(0, len(doc_list), 14)]
+    if len(args) == 2 and (args[0] == '-model' or args[0] == '-m'):
+        args[1] = args[1].lower()
+        model = None
+        use_encoded_responses = False
 
-    final_doc_list = []
+        if args[1] == 'snn':
+            pkl_df = pd.read_pickle('data/question_pairs.pkl')
+            model = Siamese()
+            use_encoded_responses = True
+        elif args[1] == 'lda':
+            use_encoded_responses = True
+            pass
+        elif args[1] == 'gpt-3':
+            pass
+        elif args[1] == 'gpt-3-etown':
+            final_doc_list = pickle.load(open('data/EtownQAData.pkl', 'rb'))
+            model = GPT3('ETOWN', final_doc_list)
+        elif args[1] == 'gpt-neo':
+            model = GPTNeo('2.7B')
+        elif args[1] == 'gpt-neo-etown':
+            pass
+        else:
+            print('Please specify a valid model parameter.\nExample: [SNN, LDA, GPT-3, GPT-3-Etown, GPT-Neo, GPT-Neo-Etown]')
+            exit(0)
 
-    for group in range(len(combined_doc_list)):
-        final_doc_list.append('')
-        for element in combined_doc_list[group]:
-           final_doc_list[group] += element
-
-    # Initialize model
-    gpt3 = GPT3('ETOWN', final_doc_list)
-    # gptNeo = GPTNeo('2.7B')
-
-    while(True):
-        listen(gpt3, True)
-
-    # print(gpt3.evaluate('Who founded Elizabethtown College?'))
+        while True:
+            listen(model, False, use_encoded_responses)
+    else:
+        print('Please specify valid start parameters.\nExample: python3 main.py -model [SNN, LDA, GPT-3, GPT-3-Etown, GPT-Neo, GPT-Neo-Etown]')
+        exit(0)
 
 
 # Press the green button to run the script
