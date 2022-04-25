@@ -40,8 +40,8 @@ class ServerSocket:
                     message = dc.clean_speech(message)
                     print('After cleaning: ' + message + '\n')
 
-                    self.client.sendall(str.encode(self.model.evaluate(message)))
-                    # self.client.sendall(str.encode('Message received successfully, this is from the server!'))
+                    if not dc.is_junk(message):
+                        self.client.sendall(str.encode(self.model.evaluate(message)))
                     continue
             except socket.timeout:
                 print("Socket timed out!")
@@ -57,7 +57,7 @@ class ServerSocket:
             except KeyboardInterrupt:
                 print("\nNLPTalk server closed with KeyboardInterrupt!\n")
                 self.close()
-                exit()
+                exit(0)
 
     def close(self):
         self.running = False

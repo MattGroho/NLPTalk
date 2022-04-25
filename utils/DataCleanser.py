@@ -71,31 +71,33 @@ def remove_stop_words(text):
     return text
 
 
-""" Translates categorical response to text output for classification models """
 def encode_response(category):
+    if category == -1:
+        return 'Sorry, I did not understand that. Could you rephrase your question?'
+
     responses = ['Learn more about the history of Elizabethtown College at https://en.wikipedia.org/wiki/Elizabethtown_College',
-                 'Check out student life at https://www.etown.edu/about/',
+                 'Check out student life at https://www.etown.edu/about',
                  'Find the location of Elizabethtown College at https://en.wikipedia.org/wiki/Elizabethtown_College',
                  'Check out the sports page at https://etownbluejays.com/',
                  'Tuition costs can be found at https://www.etown.edu/admissions/tuition-cost.aspx',
                  'Undergrad enrollment of 1,688 and the school lies on 203 acres',
-                 'There is no greek life at Etown ',
+                 'There is no greek life at Etown',
                  'A list of majors and minors can be found at https://www.etown.edu/academics/majors-minors.aspx',
                  'Classroom stats and info can be found at https://www.usnews.com/best-colleges/elizabethtown-college-3262',
-                 'Professors and their information is located at https://www.etown.edu/directory/',
+                 'Professors and their information is located at https://www.etown.edu/directory',
                  'Important dates for Elizabethtown College can be found at https://www.etown.edu/offices/registration-records/academic-calendar-2022-23.aspx',
                  'Unique things about Elizabethtown is located at https://www.etown.edu/#:~:text=Why%20Etown%3F,the%20world%20needs%20more%20of.',
                  'Fun things to around Elizabethtown College can be found at https://www.tripadvisor.com/AttractionsNear-g52581-d5789493-Elizabethtown_College-Elizabethtown_Lancaster_County_Pennsylvania.html',
                  'More information on this can be found at https://www.usnews.com/best-colleges/elizabethtown-college-3262',
                  'Group work can be found at https://www.etown.edu/campus-life/student-clubs.aspx',
                  'Requirements by admissions can be looked at here: https://www.prepscholar.com/sat/s/colleges/Elizabethtown-College-admission-requirements#:~:text=Average%20GPA%3A%203.5&text=With%20a%20GPA%20of%203.5,like%20AP%20or%20IB%20classes.',
-                 'Studying abroad information can be located at https://www.etown.edu/offices/study-abroad/',
+                 'Studying abroad information can be located at https://www.etown.edu/offices/study-abroad',
                  'Student life information can be found at https://www.etown.edu/campus-life/student-clubs.aspx',
                  'Dining services can be found at https://www.etown.edu/offices/dining/index.aspx',
                  'Information on living at Elizabethtown College can be found at https://www.etown.edu/offices/community-living/halls-apts/index.aspx',
                  'Wireless access at Elizabethtown College can be found at https://www.etown.edu/offices/its/Wireless_Access.aspx',
                  'Job rates after graduation can be found at https://www.etown.edu/admissions/outcomes.aspx#:~:text=96%25,within%20one%20year%20of%20graduation.',
-                 'Commencement at Etown can be found at https://www.etown.edu/commencement/',
+                 'Commencement at Etown can be found at https://www.etown.edu/commencement',
                  'Accredidations at Elizabethtown College can be found at https://www.etown.edu/offices/institutional-research/accreditations.aspx',
                  'Etown has strong campus security, more info can be found at https://www.etown.edu/offices/security/index.aspx',
                  'Elizabethtown College statistics can be found at https://www.usnews.com/best-colleges/elizabethtown-college-3262#:~:text=Elizabethtown%20College%20has%20a%20total,of%20students%20live%20off%20campus.',

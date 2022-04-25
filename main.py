@@ -1,6 +1,7 @@
 import sys
 from models.GPT3 import GPT3
 from models.GPTNeo import GPTNeo
+from models.LDA import LDA
 from models.Siamese import Siamese
 from utils.InputHandler import listen
 from utils import DataCleanser as dc
@@ -19,12 +20,12 @@ def main():
         use_encoded_responses = False
 
         if args[1] == 'snn':
-            pkl_df = pd.read_pickle('data/question_pairs.pkl')
             model = Siamese()
             use_encoded_responses = True
         elif args[1] == 'lda':
+            model = LDA()
             use_encoded_responses = True
-            pass
+            print(model.evaluate('best dorms at etown'))
         elif args[1] == 'gpt-3':
             pass
         elif args[1] == 'gpt-3-etown':

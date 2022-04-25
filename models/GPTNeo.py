@@ -18,9 +18,9 @@ class GPTNeo:
 
     def evaluate(self, text):
         if self.type == '125M':
-            return self.model.generate_text(text, args=self.settings).text.split('\n').split('.')
+            return self.model.generate_text(text, args=self.settings).text.split('\n').split('\n')[0].split('.')[0]
         elif self.type == '2.7B':
-            return self.model(text, do_sample=True, max_length=30, min_length=10)[0]['generated_text'].split('\n').split('.')
+            return self.model(text, do_sample=True, max_length=30, min_length=10)[0]['generated_text'].split('\n')[0].split('.')[0]
 
         return None
 

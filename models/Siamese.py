@@ -4,7 +4,7 @@ import pandas as pd
 import utils.DataCleanser as dc
 
 import tensorflow as tf
-import keras
+from tensorflow import keras
 import keras.backend as K
 
 from keras.preprocessing.text import Tokenizer
