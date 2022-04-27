@@ -72,7 +72,7 @@ def remove_stop_words(text):
 
 
 def encode_response(category):
-    if category == -1:
+    if isinstance(category, str) or category == -1:
         return 'Sorry, I did not understand that. Could you rephrase your question?'
 
     responses = ['Learn more about the history of Elizabethtown College at https://en.wikipedia.org/wiki/Elizabethtown_College',
@@ -108,7 +108,10 @@ def encode_response(category):
 
 
 def clean_speech(speech):
-    to_replace = ['a town', 'each town', 'eat out', 'always a bit on college', 'eat em', 'town']
+    to_replace = ['eternal', 'attendee down', 'always have a town college',
+                  'he town', 'a town', 'each town', 'eat out',
+                  'always a bit on college', 'eat em',
+                  'always return college', 'eaten', 'eat home', 'town']
 
     for phrase in to_replace:
         speech = speech.replace(phrase, 'Etown')
@@ -120,7 +123,7 @@ def is_junk(speech):
     junk_list = ['huh']
 
     for phrase in junk_list:
-        if speech is phrase:
+        if speech == phrase:
             return True
 
     return False

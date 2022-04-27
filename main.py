@@ -27,7 +27,7 @@ def main():
             use_encoded_responses = True
             print(model.evaluate('best dorms at etown'))
         elif args[1] == 'gpt-3':
-            pass
+            model = GPT3('GPT3', None)
         elif args[1] == 'gpt-3-etown':
             final_doc_list = pickle.load(open('data/EtownQAData.pkl', 'rb'))
             model = GPT3('ETOWN', final_doc_list)
