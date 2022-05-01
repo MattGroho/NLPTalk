@@ -23,9 +23,8 @@ def main():
             model = Siamese()
             use_encoded_responses = True
         elif args[1] == 'lda':
-            model = LDA()
-            use_encoded_responses = True
-            print(model.evaluate('best dorms at etown'))
+            print('This model type has been removed')
+            exit(0)
         elif args[1] == 'gpt-3':
             model = GPT3('GPT3', None)
         elif args[1] == 'gpt-3-etown':
@@ -34,7 +33,8 @@ def main():
         elif args[1] == 'gpt-neo':
             model = GPTNeo('2.7B')
         elif args[1] == 'gpt-neo-etown':
-            pass
+            print('This model type has been removed')
+            exit(0)
         else:
             print('Please specify a valid model parameter.\nExample: [SNN, LDA, GPT-3, GPT-3-Etown, GPT-Neo, GPT-Neo-Etown]')
             exit(0)

@@ -63,9 +63,8 @@ class ServerSocket:
                             self.model = Siamese()
                         # LDA
                         elif model_select == 1:
-                            self.use_encoded_responses = True
-                            self.model = LDA()
-                            pass
+                            print('This model type has been removed')
+                            exit(0)
                         # GPT-3
                         elif model_select == 2:
                             self.use_encoded_responses = False
@@ -81,8 +80,8 @@ class ServerSocket:
                             self.model = GPTNeo('2.7B')
                         # WIP Model Types
                         elif model_select >= 5:
-                            self.use_encoded_responses = False
-                            continue
+                            print('This model type has been removed')
+                            exit(0)
 
                     if self.use_encoded_responses:
                         self.client.sendall(str.encode(dc.encode_response(self.model.evaluate(message))))
